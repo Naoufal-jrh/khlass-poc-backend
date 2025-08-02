@@ -8,5 +8,6 @@ import java.util.List;
 
 public interface ClientRepository extends CrudRepository<ClientEntity, Long> {
     List<ClientEntity> findAllByCategoryId(Long categoryId);
-    List<ClientEntity> findAllByCompanyId(Long companyId);
+
+    List<ClientEntity> findAllByCategory_Company_Id(Long companyId);
 }

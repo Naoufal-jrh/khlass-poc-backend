@@ -20,11 +20,10 @@ public class ClientEntity {
     private String name;
     private String phone;
     private String email;
+    private String address;
 
     @ManyToOne
     private CategoryEntity category;
 
-    @ManyToOne
-    private CompanyEntity company;
 
 }

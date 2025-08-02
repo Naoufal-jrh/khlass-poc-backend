@@ -1,5 +1,6 @@
 package com.poc.khlassmvp.dtos;
 
+import com.poc.khlassmvp.entities.CompanyEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,5 +15,10 @@ import lombok.NoArgsConstructor;
 public class CategoryDto {
     private Long id;
     private String name;
+    private String description;
+    private String color;
     private Double defaultAmount;
+
+    private CompanyEntity company;
+
 }
