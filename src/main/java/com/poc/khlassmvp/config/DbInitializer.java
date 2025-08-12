@@ -68,6 +68,8 @@ public class DbInitializer implements CommandLineRunner {
                     .name(company.getName() + " - Category " + i)
                     .defaultAmount(100.0 * i)
                     .company(company)
+                    .color("#FF0000")
+                    .description("Description " + i)
                     .build();
             categories.add(categoryMapper.toEntity(categoryService.addCategory(category)));
         }
@@ -81,10 +83,10 @@ public class DbInitializer implements CommandLineRunner {
             ClientEntity client = ClientEntity.builder()
                     .name("Client " + i + " - " + company.getName())
                     .category(category)
-                    .company(company)
                     .paymentIdentifier("PID-" + company.getName().charAt(company.getName().length() - 1) + "-" + category.getName().charAt(category.getName().length() - 1) + "-" + i)
                     .email("client" + i + "@" + company.getName().toLowerCase().replace(" ", "") + ".com")
                     .phone("1234567" + i)
+                    .address("Address " + i)
                     .build();
             clients.add(clientMapper.toEntity(clientService.addClient(client)));
         }
@@ -96,9 +98,11 @@ public class DbInitializer implements CommandLineRunner {
         for (int i = 1; i <= count; i++) {
             BillEntity bill = BillEntity.builder()
                     .amount(150.0 + (i * 10))
-                    .expiryDate(LocalDate.now().plusDays(i * 2))
+                    .expiryDate(LocalDate.now().plusDays(i * 2L))
                     .client(client)
-                    .company(company)
+                    .description("Description " + i)
+                    .payed(false)
+                    .name("Bill " + i)
                     .build();
             billService.addBill(bill);
         }
