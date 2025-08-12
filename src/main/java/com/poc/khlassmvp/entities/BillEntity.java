@@ -15,15 +15,15 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class BillEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private double amount;
+    private String name;
+    private String description;
+    private Double amount;
     private LocalDate expiryDate;
+    private Boolean payed;
 
 
     @ManyToOne
     private ClientEntity client;
-
-    @ManyToOne
-    private CompanyEntity company;
 }

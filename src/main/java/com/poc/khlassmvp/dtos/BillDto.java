@@ -12,10 +12,11 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class BillDto {
     private Long id;
-    private double amount;
+    private String name;
+    private String description;
+    private Double amount;
     private LocalDate expiryDate;
+    private Boolean payed;
 
     private ClientDto client;
-
-    private CompanyDto company;
 }

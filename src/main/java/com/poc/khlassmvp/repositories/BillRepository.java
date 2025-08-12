@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface BillRepository extends CrudRepository<BillEntity, Long> {
     List<BillEntity> findAllByClientId(Long clientId);
-    List<BillEntity> findAllByCompanyId(Long companyId);
+    List<BillEntity> findAllByClientCategoryCompanyId(Long companyId);
     List<BillEntity>  findAllByClientCategoryId(Long clientCategoryId);
 }
