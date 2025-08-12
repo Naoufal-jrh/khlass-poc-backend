@@ -14,6 +14,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/bill")
@@ -55,10 +56,10 @@ public class BillController {
     }
 
     @PostMapping
-    public ResponseEntity<BillDto> createBill(@RequestBody BillDto billDto){
+    public ResponseEntity<List<BillDto>> createBill(@RequestBody List<BillDto> billDto){
         try {
-            BillDto bill = billService.addBill(billMapper.toEntity(billDto));
-            return ResponseEntity.created(URI.create("/bill/" + bill.getId())).body(bill);
+            List<BillDto> bills = billService.addBills(billDto.stream().map(billMapper::toEntity).toList());
+            return ResponseEntity.status(HttpStatus.CREATED).body(bills);
         } catch (NoSuchElementException nse){
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }

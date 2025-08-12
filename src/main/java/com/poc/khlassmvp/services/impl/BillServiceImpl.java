@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -43,7 +44,6 @@ public class BillServiceImpl implements BillService {
         return billRepository.findAllByClientCategoryId(categoryId).stream().map(billMapper::toDto).toList();
     }
 
-    // TODO : add a list of bills
     // TODO : check if the bill with the same client - company - creation date exists already.
     @Override
     public BillDto addBill(BillEntity billEntity) {
@@ -52,6 +52,12 @@ public class BillServiceImpl implements BillService {
             throw new IllegalArgumentException("Bill with id " + billEntity.getId() + " already exists");
         else
             return billMapper.toDto(billRepository.save(billEntity));
+    }
+
+    // TODO : add a list of bills
+    @Override
+    public List<BillDto> addBills(List<BillEntity> billEntities) {
+        return billEntities.stream().map(this::addBill).collect(Collectors.toList());
     }
 
     @Override

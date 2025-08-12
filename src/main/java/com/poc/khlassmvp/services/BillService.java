@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface BillService {
     BillDto addBill(BillEntity billEntity);
+    List<BillDto> addBills(List<BillEntity> billEntities);
     List<BillDto> getBillsByClientId(Long clientId);
     List<BillDto> getBillsByCompanyId(Long companyId);
     List<BillDto> getBillsByCategoryId(Long categoryId);
