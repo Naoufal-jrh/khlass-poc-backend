@@ -12,10 +12,9 @@ import org.springframework.stereotype.Component;
 public class ClientMapper implements Mapper<ClientEntity, ClientDto> {
     private final ModelMapper modelMapper;
 
-
     @Override
     public ClientEntity toEntity(ClientDto dto) {
-        return modelMapper.map(dto, ClientEntity.class);
+         return modelMapper.map(dto, ClientEntity.class);
     }
 
     @Override

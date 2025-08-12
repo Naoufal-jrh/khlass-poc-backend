@@ -10,4 +10,6 @@ public interface ClientRepository extends CrudRepository<ClientEntity, Long> {
     List<ClientEntity> findAllByCategoryId(Long categoryId);
 
     List<ClientEntity> findAllByCategory_Company_Id(Long companyId);
+
+    boolean existsByPaymentIdentifier(String paymentIdentifier);
 }

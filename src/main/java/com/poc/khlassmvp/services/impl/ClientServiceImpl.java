@@ -21,11 +21,10 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public ClientDto getClientById(Long id) throws NoSuchElementException {
-        return clientMapper.toDto(
-                clientRepository
+        return clientRepository
                         .findById(id)
-                        .orElseThrow(() -> new NoSuchElementException("Client with id " + id + " not found"))
-        );
+                        .map(clientMapper::toDto)
+                        .orElseThrow(() -> new NoSuchElementException("Client with id " + id + " not found"));
     }
 
     @Override
@@ -38,6 +37,7 @@ public class ClientServiceImpl implements ClientService {
         return clientRepository.findAllByCategory_Company_Id(id).stream().map(clientMapper::toDto).toList();
     }
 
+    // TODO : add a list of clients
     @Override
     public ClientDto addClient(ClientEntity clientEntity) throws IllegalArgumentException{
         boolean exists = clientRepository.existsById(clientEntity.getId());
