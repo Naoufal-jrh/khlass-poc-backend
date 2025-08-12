@@ -135,7 +135,7 @@ Add a list of clients.
     "name": "Client 1 - Company 1",
     "phone": "12345671",
     "email": "client1@company1.com",
-    "address": "adress",
+    "address": "adresse",
     "category": {
       "id": 1
     }
@@ -180,7 +180,7 @@ No Parameters.
 **URL:**
 
 ```
-PUT  /client/{clientId}
+PATCH  /client/{clientId}
 ```
 
 **Description:**
@@ -319,7 +319,8 @@ No Query Parameters.
 **URL:**
 
 ```
-PUT  /category/{categoryId}
+PATCH
+  /category/{categoryId}
 ```
 
 **Description:**
@@ -463,7 +464,7 @@ No Parameters.
 **URL:**
 
 ```
-PUT  /bill/{billId}
+PATCH  /bill/{billId}
 ```
 
 **Description:**
@@ -499,7 +500,7 @@ Update the information of an existing bill.
 
 ---
 
-### 5. **Delete a Bill**
+### **Delete a Bill**
 
 **URL:**
 
