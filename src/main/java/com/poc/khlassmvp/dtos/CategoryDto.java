@@ -19,6 +19,6 @@ public class CategoryDto {
     private String color;
     private Double defaultAmount;
 
-    private CompanyEntity company;
+    private CompanyDto company;
 
 }
