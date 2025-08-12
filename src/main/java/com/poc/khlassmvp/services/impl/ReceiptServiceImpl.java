@@ -23,7 +23,7 @@ public class ReceiptServiceImpl implements ReceiptService {
 
     @Override
     public List<ReceiptDto> getReceiptsByCompanyId(Long companyId) {
-        return receiptRepository.findAllByBillCompanyId(companyId).stream().map(receiptMapper::toDto).collect(Collectors.toList());
+        return receiptRepository.findAllByBillClientCategoryCompanyId(companyId).stream().map(receiptMapper::toDto).collect(Collectors.toList());
     }
 
     @Override

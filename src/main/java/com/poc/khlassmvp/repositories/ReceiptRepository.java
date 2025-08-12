@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface ReceiptRepository extends CrudRepository<ReceiptEntity, Long> {
     ReceiptEntity findByBillId(Long billId);
-    List<ReceiptEntity> findAllByBillCompanyId(Long companyId);
+    List<ReceiptEntity> findAllByBillClientCategoryCompanyId(Long companyId);
     List<ReceiptEntity> findAllByBillClientId(Long clientId);
 }
