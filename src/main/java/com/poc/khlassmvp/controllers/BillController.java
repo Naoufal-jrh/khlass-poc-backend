@@ -23,7 +23,6 @@ public class BillController {
     private final BillService billService;
     private final BillMapper billMapper;
 
-
     @GetMapping
     public ResponseEntity<List<BillDto>> getBills(
             @RequestParam(required = false) Long clientId,
@@ -48,42 +47,24 @@ public class BillController {
 
     @GetMapping("/{billId}")
     public ResponseEntity<BillDto> getBillById(@PathVariable Long billId){
-        try {
-            return ResponseEntity.status(HttpStatus.FOUND).body(billService.getBillById(billId));
-        } catch (NoSuchElementException nse) {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.status(HttpStatus.FOUND).body(billService.getBillById(billId));
     }
 
     @PostMapping
     public ResponseEntity<List<BillDto>> createBill(@RequestBody List<BillDto> billDto){
-        try {
-            List<BillDto> bills = billService.addBills(billDto.stream().map(billMapper::toEntity).toList());
-            return ResponseEntity.status(HttpStatus.CREATED).body(bills);
-        } catch (NoSuchElementException nse){
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
-        }
+        List<BillDto> bills = billService.addBills(billDto.stream().map(billMapper::toEntity).toList());
+        return ResponseEntity.status(HttpStatus.CREATED).body(bills);
     }
 
     @PatchMapping("/{billId}")
     public ResponseEntity<BillDto> updateBill(@PathVariable Long billId, @RequestBody BillDto billDto) {
-        try {
-            BillDto bill =  billService.updateBill(billMapper.toEntity(billDto), billId);
-            return ResponseEntity.created(URI.create("/bill/" + bill.getId())).body(bill);
-        } catch (NoSuchElementException nse) {
-            return ResponseEntity.notFound().build();
-        }
+        BillDto bill =  billService.updateBill(billMapper.toEntity(billDto), billId);
+        return ResponseEntity.created(URI.create("/bill/" + bill.getId())).body(bill);
     }
 
     @DeleteMapping("/{billId}")
     public ResponseEntity<Void> deleteBill(@PathVariable Long billId) {
-        try {
-            billService.deleteBillById(billId);
-            return ResponseEntity.ok().build();
-        } catch (NoSuchElementException nse) {
-            return ResponseEntity.notFound().build();
-        }
+        billService.deleteBillById(billId);
+        return ResponseEntity.ok().build();
     }
-
-
 }

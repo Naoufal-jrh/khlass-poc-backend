@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/client")
@@ -35,43 +34,25 @@ public class ClientController {
 
     @GetMapping("/{clientId}")
     public ResponseEntity<ClientDto> getClientById(@PathVariable Long clientId) {
-        // TODO: handle this with AOP controller advice
-        try{
-            return ResponseEntity.status(HttpStatus.FOUND).body(clientService.getClientById(clientId));
-        } catch (NoSuchElementException nse){
-            return ResponseEntity.notFound().build();
-            // return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
-        }
+        return ResponseEntity.status(HttpStatus.FOUND).body(clientService.getClientById(clientId));
     }
 
     @PostMapping
     public ResponseEntity<ClientDto> createClient(@RequestBody ClientDto clientDto) {
-        try{
-            ClientDto client = clientService.addClient(clientMapper.toEntity(clientDto));
-            return ResponseEntity.created(URI.create("/client/"+client.getId())).body(client);
-        } catch (IllegalArgumentException e){
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
-        }
+        ClientDto client = clientService.addClient(clientMapper.toEntity(clientDto));
+        return ResponseEntity.created(URI.create("/client/"+client.getId())).body(client);
     }
 
     @PatchMapping("{clientId}")
     public ResponseEntity<ClientDto> updateClient(@PathVariable Long clientId, @RequestBody ClientDto clientDto) {
-        try{
-            ClientDto client = clientService.updateClient(clientMapper.toEntity(clientDto), clientId);
-            return ResponseEntity.created(URI.create("/client/"+client.getId())).body(client);
-        } catch (NoSuchElementException e){
-            return ResponseEntity.notFound().build();
-        }
+        ClientDto client = clientService.updateClient(clientMapper.toEntity(clientDto), clientId);
+        return ResponseEntity.created(URI.create("/client/"+client.getId())).body(client);
     }
 
     @DeleteMapping("{clientId}")
     public ResponseEntity<Void> deleteClient(@PathVariable Long clientId) {
-        try{
-            clientService.deleteClientById(clientId);
-            return ResponseEntity.ok().build();
-        } catch (NoSuchElementException nse){
-            return ResponseEntity.notFound().build();
-        }
+        clientService.deleteClientById(clientId);
+        return ResponseEntity.ok().build();
     }
 
 }
