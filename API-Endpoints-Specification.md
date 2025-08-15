@@ -13,18 +13,6 @@ https://api.example.com/v1
 
 ---
 
-## **Authentication**
-
-* **Type:** Bearer Token (JWT)
-* **Header Example:**
-
-  ```
-  Authorization: Bearer <your_token>
-  ```
-* Some endpoints may be public; see details below.
-
----
-
 ## **Endpoints**
 
 ### I. Client EndPoints
@@ -74,6 +62,24 @@ Returns a list of all client by company or by category.
 ]
 ```
 
+**Response (401 UNAUTHORIZED):**
+
+```json
+{
+    "message": "you can't access clients from company a"
+}
+```
+
+**Response (404 NOT FOUND):**
+
+```json
+{
+    "message": "company/category with id .. not found."
+}
+```
+
+When trying to fetch clients for a company or category that doesn't belong to the client (company A trying to access clients from company B)
+
 ---
 
 ### **Get Client by id**
@@ -112,6 +118,23 @@ No parameters.
   }
 }
 ```
+
+**Response (404 NOT FOUND):**
+
+```json
+{
+    "message": "client with id %ID not found."
+}
+```
+
+**Response (401 UNAUTHORIZED):**
+
+```json
+{
+    "message": "you don't have access to this client"
+}
+```
+
 ---
 
 
@@ -169,7 +192,15 @@ No Parameters.
 
 ```json
 {
-  "error": "Client already exists"
+  "error": "Client with payment identifier / email / phone number // to be determined later already exists"
+}
+```
+
+**Response (401 UNAUTHORIZED):**
+
+```json
+{
+    "message": "you don't have access to this company / category"
 }
 ```
 
@@ -219,6 +250,13 @@ Update the information of an existing client.
   "error": "Client not found"
 }
 ```
+**Response (401 UNAUTHORIZED):**
+
+```json
+{
+    "message": "you don't have access to this client"
+}
+```
 
 ---
 
@@ -241,6 +279,14 @@ No body is returned.
 ```json
 {
   "error": "Client not found"
+}
+```
+
+**Response (401 UNAUTHORIZED):**
+
+```json
+{
+    "message": "you don't have access to this client"
 }
 ```
 
@@ -285,6 +331,22 @@ Returns a list of all categories of a company.
 ]
 ```
 
+**Response (404 NOT FOUND):**
+
+```json
+{
+    "message": "COMPANY NOT FOUND"
+}
+```
+
+**Response (401 UNAUTHORIZED):**
+
+```json
+{
+    "message": "you don't have access to this categories"
+}
+```
+
 ---
 
 ### **Get Category by ID**
@@ -312,6 +374,21 @@ No Query Parameters.
     "color": "#color",
     "defaultAmount": 100.0
   }
+```
+
+**Response (404 NOT FOUND):**
+
+```json
+{
+    "message": "CATEGORY NOT FOUND"
+}
+```
+**Response (401 UNAUTHORIZED):**
+
+```json
+{
+    "message": "you don't have access to this client"
+}
 ```
 
 ### **Update Category**
@@ -354,6 +431,13 @@ Update the information of an existing category
 }
 ```
 
+**Response (401 UNAUTHORIZED):**
+
+```json
+{
+    "message": "you don't have access to this client"
+}
+```
 ---
 
 ### **Delete a Category**
@@ -377,6 +461,15 @@ No body is returned.
   "error": "Category not found"
 }
 ```
+
+**Response (401 UNAUTHORIZED):**
+
+```json
+{
+    "message": "you don't have access to this category"
+}
+```
+
 
 
 
@@ -525,13 +618,6 @@ No body is returned.
 
 
 
-
-
-
-
-
-
-
 ---
 
 ## **Error Codes**
@@ -545,36 +631,3 @@ No body is returned.
 | 500  | Internal Server Error |
 
 ---
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## **Versioning**
-
-* Current API version: **v1**
-
----
-
-## **Contact**
-
-For issues or questions, please contact: **[naoufaljrh2000@gmail.com](mailto:naoufaljrh2000@gmail.com)**
