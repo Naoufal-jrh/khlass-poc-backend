@@ -27,12 +27,21 @@ public class CategoryServiceImpl implements CategoryService {
                 .orElseThrow(() -> new NoSuchElementException("Category with id " + id + " not found"));
     }
 
+    // TODO : check if category exists
     @Override
     public List<CategoryDto> getCategoriesByCompanyId(Long companyId) {
         return categoryRepository.findAllByCompanyId(companyId).stream().map(categoryMapper::toDto).toList();
     }
 
     // TODO : add a list of categories
+    /*
+    TODO : reinforce business logic
+    name : should not be empty, limit it with words or characters tbd
+    description : can be empty, limit it with words or characters as well tbd
+    color : just give it a random value if not specified in the entity
+    company : should not be null
+    default amount : this also should not be empty and should not be a negative value.
+     */
     @Override
     public CategoryDto addCategory(CategoryEntity categoryEntity) {
         boolean exists = categoryRepository.existsByName(categoryEntity.getName());
@@ -48,18 +57,23 @@ public class CategoryServiceImpl implements CategoryService {
                 .orElseThrow(() -> new NoSuchElementException("Category not found with id " + categoryId));
 
         if (categoryEntity.getName() != null) {
+            // TODO : should be UNIQUE and not be empty, limit it with words or characters tbd
             existingCategory.setName(categoryEntity.getName());
         }
         if (categoryEntity.getColor() != null) {
+            // TODO : just give it a random value if not specified in the entity
             existingCategory.setColor(categoryEntity.getColor());
         }
         if (categoryEntity.getCompany() != null) {
+            // TODO : should not be null
             existingCategory.setCompany(categoryEntity.getCompany());
         }
         if (categoryEntity.getDescription() != null) {
+            // TODO : can be empty, limit it with words or characters as well tbd
             existingCategory.setDescription(categoryEntity.getDescription());
         }
         if (categoryEntity.getDefaultAmount() != null) {
+            // TODO : this also should not be empty and should not be a negative value.
             existingCategory.setDefaultAmount(categoryEntity.getDefaultAmount());
         }
 
@@ -67,6 +81,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     }
 
+    // TODO : only soft delete this, add a flag in the category table that indicates if this is deleted or not.
     @Override
     public void deleteCategoryById(Long id) {
         CategoryEntity category = categoryRepository.findById(id)
